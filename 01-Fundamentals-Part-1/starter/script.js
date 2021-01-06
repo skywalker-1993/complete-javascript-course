@@ -119,6 +119,7 @@ if (birthYear <= 2000) {
 
 console.log(century);*/
 
+/*
 // type conversion
 const inputYear = "1991";
 console.log(Number(inputYear), inputYear);
@@ -144,3 +145,136 @@ console.log(n);
 
 console.log(2 + 3 + 4 + "5");
 console.log("10" - "4" - "3" - 2 + "5");
+*/
+
+// 5 falsy values: 0, '', undefined, null, NaN
+/* if (!NaN) {
+  console.log("OK!");
+}
+console.log(Boolean(0));
+console.log(Boolean(undefined));
+console.log(Boolean("Tiago"));
+console.log(Boolean({}));
+console.log(Boolean(""));
+
+const money = 100;
+if (money) {
+  console.log("Don't spend it all ;)");
+} else {
+  console.log("You should get a job!");
+}
+
+let height = 0;
+if (height) {
+  console.log("YAY! Height is defined");
+} else {
+  console.log("Height is UNDEFINED");
+} */
+
+// Equality Operators
+/*const age = '18';
+if (age === 18) console.log('You just became an adult :D (strict)'); // Strict Equal -> Does NOT do type coercion
+
+if (age == 18) console.log('You just became an adult :D (loose)'); // Loose Equal -> DOES type coercion
+
+const favourite = Number(prompt("What's your favourite number?"));
+console.log(favourite);
+console.log(typeof favourite);
+
+if (favourite === 23) {
+  console.log('Cool! 23 is an amazing number!');
+} else if (favourite === 7) {
+  console.log('7 is also a cool number');
+} else if (favourite === 9) {
+  console.log('9 is also a cool number');
+} else {
+  console.log('Number is not 23 or 7 or 9');
+}
+
+if (favourite !== 23) console.log('Why not 23?');
+*/
+
+// Logical Operators
+/*const hasDriversLicense = true; // A
+const hasGoodVision = true; // B
+
+console.log(hasDriversLicense && hasGoodVision);
+console.log(hasDriversLicense || hasGoodVision);
+console.log(!hasDriversLicense);
+
+const shouldDrive = hasDriversLicense && hasGoodVision;
+
+if (shouldDrive) {
+  console.log('Sarah is able to drive!');
+} else {
+  console.log('Someone else should drive...');
+}
+
+const isTired = true; // C
+console.log(hasDriversLicense && hasGoodVision && isTired);
+
+if (shouldDrive && !isTired) {
+  console.log('Sarah is able to drive!');
+} else {
+  console.log('Someone else should drive...');
+}*/
+
+// SWITCH STATEMENT
+/*const day = 'tuesday';
+
+switch (day) {
+  case 'monday':
+    console.log('Plan course structure');
+    console.log('Go to coding meetup');
+    break;
+  case 'tuesday':
+    console.log('Prepare theory videos');
+    break;
+  case 'wednesday':
+  case 'thursday':
+    console.log('Write code examples');
+    break;
+  case 'friday':
+    console.log('Record videos');
+    break;
+  case 'saturday':
+  case 'sunday':
+    console.log('Enjoy the weekend :D');
+    break;
+  default:
+    console.log('Not a valid day!');
+}
+
+if (day === 'monday') {
+  console.log('Plan course structure');
+  console.log('Go to coding meetup');
+} else if (day === 'tuesday') {
+  console.log('Prepare theory videos');
+} else if (day === 'wednesday' || day === 'thurday') {
+  console.log('Write code examples');
+} else if (day === 'friday') {
+  console.log('Record videos');
+} else if (day === 'saturday' || day === 'sunday') {
+  console.log('Enjoy the weekend :D');
+} else {
+  console.log('Not a valid day!');
+}*/
+
+// CONDITIONAL (TERNARY) OPERATOR
+const age = 27;
+/* age >= 18
+  ? console.log('I like to drink beer 🍺')
+  : console.log('I like to drink water 💧'); */
+
+const drink = age >= 18 ? 'beer 🍺' : 'water 💧';
+console.log(drink);
+
+let drink2;
+if (age >= 18) {
+  drink2 = 'beer 🍺';
+} else {
+  drink2 = 'water 💧';
+}
+console.log(drink2);
+
+console.log(`I like to drink ${age >= 18 ? 'beer 🍺' : 'water 💧'}`);
