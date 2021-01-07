@@ -28,3 +28,65 @@ console.log(avgDolphins2, avgKoalas2);
 checkWinner(avgDolphins2, avgKoalas2); */
 
 // CHALLENGE #2
+/* const calcTip = function (bill) {
+  //   if (bill >= 50 && bill <= 300) {
+  //     return bill * 0.15;
+  //   } else {
+  //     return bill * 0.2;
+  //   }
+  return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+};
+
+console.log(calcTip(100));
+
+const bills = [125, 555, 44];
+console.log(bills);
+
+const tips = [
+  calcTip(bills[0]),
+  calcTip(bills[1]),
+  calcTip(bills[bills.length - 1]),
+];
+console.log(tips);
+
+const total = [
+  bills[0] + tips[0],
+  bills[1] + tips[1],
+  bills[bills.length - 1] + tips[tips.length - 1],
+];
+console.log(total);
+ */
+
+// CHALLENGE #3
+const mark = {
+  fullName: 'Mark Miller',
+  mass: 78,
+  height: 1.69,
+  calcBMI: function () {
+    this.bmi = this.mass / this.height ** 2;
+    return this.bmi;
+  },
+};
+
+const john = {
+  fullName: 'John Smith',
+  mass: 92,
+  height: 1.95,
+  calcBMI: function () {
+    this.bmi = this.mass / this.height ** 2;
+    return this.bmi;
+  },
+};
+
+mark.calcBMI();
+john.calcBMI();
+
+if (mark.bmi > john.bmi) {
+  console.log(
+    `${mark.fullName}'s BMI (${mark.bmi}) is higher than ${john.fullName}'s BMI (${john.bmi})`
+  );
+} else if (mark.bmi < john.bmi) {
+  console.log(
+    `${john.fullName}'s BMI (${john.bmi}) is higher than ${mark.fullName}'s BMI (${mark.bmi})`
+  );
+}
