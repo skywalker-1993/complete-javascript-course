@@ -58,7 +58,7 @@ console.log(total);
  */
 
 // CHALLENGE #3
-const mark = {
+/* const mark = {
   fullName: 'Mark Miller',
   mass: 78,
   height: 1.69,
@@ -89,4 +89,35 @@ if (mark.bmi > john.bmi) {
   console.log(
     `${john.fullName}'s BMI (${john.bmi}) is higher than ${mark.fullName}'s BMI (${mark.bmi})`
   );
+} */
+
+// CHALLENGE #4
+const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
+const tips = [];
+const totals = [];
+
+const calcTip = function (bill) {
+  return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+};
+
+for (let i = 0; i < bills.length; i++) {
+  const tip = calcTip(bills[i]);
+  tips.push(tip);
+  totals.push(bills[i] + tip);
 }
+
+console.log(tips);
+console.log(totals);
+
+const calcAverage = function (arr) {
+  let sum = 0;
+  const length = arr.length;
+  for (let i = 0; i < length; i++) {
+    sum += arr[i];
+  }
+  return sum / length;
+};
+
+console.log(calcAverage([2, 3, 7]));
+console.log(calcAverage(totals));
+console.log(calcAverage(tips));
