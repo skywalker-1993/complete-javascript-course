@@ -109,7 +109,7 @@ for (player of game.scored) {
 console.log(scorers); */
 
 // CHALLENGE #3
-const gameEvents = new Map([
+/* const gameEvents = new Map([
   [17, '⚽ GOAL'],
   [36, '🔁 Substitution'],
   [47, '⚽ GOAL'],
@@ -139,3 +139,54 @@ console.log(eventStr);
 for (const [key, event] of gameEvents.entries()) {
   console.log(`${key <= 45 ? '[FIRST' : '[SECOND'} HALF] ${key}: ${event}`);
 }
+ */
+
+// CHALLENGE #4 --- More Complex version...
+let textBox;
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+const getMaxLengthOfArray = function (listOfStrings) {
+  let maxSize = 0;
+  for (const str of listOfStrings) {
+    if (str.length > maxSize) maxSize = str.length;
+  }
+  return maxSize;
+};
+
+const updateToCamelCase = function (text) {
+  const consoleList = [];
+  if (text && text.includes('_')) {
+    const strArray = text.split('\n');
+    for (const str of strArray) {
+      const lowerCaseArray = str
+        .trim()
+        .toLowerCase()
+        .split('_')
+        .map(el => el.replaceAll(' ', ''));
+      let secondWord = '';
+      for (let i = 1; i < lowerCaseArray.length; i++) {
+        secondWord +=
+          lowerCaseArray[i][0].toUpperCase() + lowerCaseArray[i].slice(1);
+      }
+      const newWord = lowerCaseArray[0].trim() + secondWord;
+      consoleList.push(newWord);
+    }
+  }
+  return consoleList;
+};
+
+document.addEventListener('input', function () {
+  textBox = document.querySelector('textarea').value;
+});
+
+document.querySelector('button').addEventListener('click', function () {
+  const listOfStrings = updateToCamelCase(textBox);
+  const maxSize = getMaxLengthOfArray(listOfStrings);
+  if (maxSize) {
+    for (const [i, str] of listOfStrings.entries()) {
+      console.log(str.padEnd(maxSize + 4, ' ') + '✅'.repeat(i + 1));
+    }
+  }
+});
