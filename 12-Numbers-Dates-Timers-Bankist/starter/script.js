@@ -204,7 +204,7 @@ const startLogOutTimer = function () {
   };
 
   // Set time to 5 minutes
-  let time = 120;
+  let time = 300;
 
   // Call the timer every second
   tick();
@@ -313,6 +313,7 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Timeout set to simulate the approval process of the bank
     setTimeout(function () {
       // Add movement
       currentAccount.movements.push(amount);
@@ -581,13 +582,12 @@ console.log(
   navigator.language,
   new Intl.NumberFormat(navigator.language, options).format(num)
 );
+*/
 
-// DELETE BELOW THIS!!!
 ///////////////////////////////////////
 // Timers
 
-// setTimeout
-const ingredients = ['olives', 'spinach'];
+/* const ingredients = ['olives', 'spinach'];
 const pizzaTimer = setTimeout(
   (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2} 🍕`),
   3000,
@@ -597,9 +597,13 @@ console.log('Waiting...');
 
 if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
 
-// setInterval
+// setTimeout
 setInterval(function () {
   const now = new Date();
-  console.log(now);
+  console.log(
+    `${String(now.getHours()).padStart(2, 0)}:${String(
+      now.getMinutes()
+    ).padStart(2, 0)}:${String(now.getSeconds()).padStart(2, 0)}`
+  );
 }, 1000);
-*/
+ */
