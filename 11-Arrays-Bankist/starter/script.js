@@ -34,7 +34,7 @@ const account4 = {
 };
 
 const accounts = [account1, account2, account3, account4];
-
+// console.log(accounts);
 // Elements
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
@@ -507,27 +507,27 @@ movements.sort((a, b) => b - a);
 console.log(movements);
  */
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
-console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+// const arr = [1, 2, 3, 4, 5, 6, 7];
+// console.log(new Array(1, 2, 3, 4, 5, 6, 7));
 
-// Empty arrays + fill method
-const x = new Array(7);
-console.log(x);
-// console.log(x.map(() => 5));
+// // Empty arrays + fill method
+// const x = new Array(7);
+// console.log(x);
+// // console.log(x.map(() => 5));
+// // x.fill(1);
+// x.fill(1, 3, 5);
 // x.fill(1);
-x.fill(1, 3, 5);
-x.fill(1);
-console.log(x);
+// console.log(x);
 
-arr.fill(23, 4, 6);
-console.log(arr);
+// arr.fill(23, 4, 6);
+// console.log(arr);
 
-// Array.from
-const y = Array.from({ length: 7 }, () => 1);
-console.log(y);
+// // Array.from
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
 
-const z = Array.from({ length: 7 }, (_, i) => i + 1);
-console.log(z);
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+// console.log(z);
 
 // const diceRolls = Array.from({ length: 100 }, () =>
 //   Math.trunc(Math.random() * 6 + 1)
@@ -545,3 +545,109 @@ labelBalance.addEventListener('click', function () {
   // console.log(document.querySelectorAll('.movements__value'));
   // const movementsU2 = [...document.querySelectorAll('.movements__value')];
 });
+
+// NEW CHALLENGE
+
+// 1.
+// console.log(accounts);
+const bankDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+
+console.log(bankDepositSum);
+// console.log(accounts);
+
+const movArray = [];
+accounts.reduce((_, cur) => {
+  movArray.push(...cur.movements);
+}, 0);
+// console.log(movArray);
+
+const bankDepositSumNew = movArray.reduce((sum, cur) => {
+  // console.log(cur);
+  return cur > 0 ? sum + cur : sum;
+}, 0);
+console.log(bankDepositSumNew);
+//console.log(bankDepositSumNew);
+
+// 2.
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+
+const numDeposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  // .reduce((count, cur) => (cur >= 1000 ? count + 1 : count)
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
+
+console.log(numDeposits1000);
+
+const numDeposits1000New = movArray.reduce(
+  (count, cur) => (cur >= 1000 ? ++count : count),
+  0
+);
+
+console.log(numDeposits1000New);
+
+// Prefixed ++ operator
+// let a = 10;
+// console.log(++a);
+// console.log(a);
+
+// 3.
+// const sums = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce(
+//     // (sums, cur) => {
+//     //   cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+//     //   return sums;
+//     // },
+//     function (sums, cur) {
+//       cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+//       return sums;
+//     },
+//     { deposits: 0, withdrawals: 0 }
+//   );
+// console.log(sums);
+const { deposits, withdrawals } = accounts
+  .flatMap(acc => acc.movements)
+  .reduce(
+    (sums, cur) => {
+      // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
+      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+      return sums;
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+console.log(deposits, withdrawals);
+
+const { depositsNew, withdrawalsNew } = movArray.reduce(
+  (sums, cur) => {
+    sums[cur > 0 ? 'depositsNew' : 'withdrawalsNew'] += cur;
+    return sums;
+  },
+  { depositsNew: 0, withdrawalsNew: 0 }
+);
+console.log(depositsNew, withdrawalsNew);
+
+// 4.
+// this is a nice title -> This Is a Nice Title
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word =>
+      !exceptions.includes(word) ? word[0].toUpperCase() + word.slice(1) : word
+    )
+    .join(' ');
+  return capitalize(titleCase);
+};
+
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
