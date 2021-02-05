@@ -78,6 +78,7 @@ class App {
   _mapZoomLevel = 13;
   _mapEvent;
   _workouts = [];
+  _markers = [];
 
   constructor() {
     // Get user's position
@@ -151,8 +152,9 @@ class App {
     // Handling clicks on map
     this._map.on('click', this._showForm.bind(this));
 
-    if (!this._workouts) return;
-
+    if (!this._workouts.length > 0) return;
+    // console.log(this._workouts, this._markers);
+    // console.log('IMPOSSIBLE!!!');
     this._workouts.forEach(work => {
       this._renderWorkoutMarker(work);
     });
@@ -236,7 +238,7 @@ class App {
   }
 
   _renderWorkoutMarker(workout) {
-    L.marker(workout.coords)
+    const newMarker = L.marker(workout.coords)
       .addTo(this._map)
       .bindPopup(
         L.popup({
@@ -251,6 +253,12 @@ class App {
         `${workout.type === 'running' ? '🏃‍♂️' : '🚴‍♂️'} ${workout.description}`
       )
       .openPopup();
+
+    // const { lat, lng } = newMarker._latlng;
+    this._markers.push(newMarker);
+    // console.log(this._markers.some(e => e.lat === lat && e.lng === lng));
+    // if (!this._markers.some(e => e.lat === lat && e.lng === lng))
+    //   this._markers.push({ lat, lng });
   }
 
   _renderWorkout(workout) {
@@ -329,17 +337,22 @@ class App {
   }
 
   _setLocalStorage() {
-    console.log('Here the local storage will be set:', this._workouts);
+    // console.log('Here the local storage will be set:', this._workouts);
     localStorage.setItem('workouts', JSON.stringify(this._workouts));
+    // console.log(this._workouts);
+    // console.log('AQUI ESTA: ', this._markers);
+    //localStorage.setItem('markers', JSON.stringify(this._markers));
   }
 
   _getLocalStorage() {
     const data = JSON.parse(localStorage.getItem('workouts'));
+    //const dataMarkers = JSON.parse(localStorage.getItem('markers'));
     // console.log(data);
 
     if (!data) return;
 
     this._workouts = data;
+    //this._markers = dataMarkers;
 
     // Rebuild workout objects to reflect their classes
     this._workouts.forEach(work =>
@@ -362,6 +375,7 @@ class App {
 
   reset() {
     localStorage.removeItem('workouts');
+    localStorage.removeItem('markers');
     location.reload();
   }
 
@@ -381,16 +395,65 @@ class App {
   }
 
   _deleteWorkout(event) {
-    if (event.target.classList.contains('x_icon')) alert('Are you sure?');
-    else return;
+    // console.log(this);
+    // console.log(this._map);
+    // console.log(this._workouts);
+    // console.log(this._markers);
+    if (event.target.classList.contains('x_icon')) {
+      const option = confirm('Do you want to delete this workout?');
+      if (!option) return;
+    } else {
+      return;
+    }
+    /* if (event.target.classList.contains('x_icon')) alert('Are you sure?');
+    else return; */
+
     const workoutEl = event.target.closest('.workout');
+
+    // console.log(workoutEl);
+
     const workout = this._workouts.find(
       work => work.id === workoutEl.dataset.id
     );
     // console.log(workout);
-    this._workouts.splice(this._workouts.indexOf(workout), 1);
+    const workoutIndex = this._workouts.indexOf(workout);
+    this._workouts.splice(workoutIndex, 1);
     // console.log(this._workouts);
     // this._workouts.forEach(work => this._renderWorkout(work));
+    //console.log(this._markers);
+    // console.log(workoutIndex);
+    //this._markers.splice(workoutIndex, 1);
+
+    // Delete element from HTML
+    workoutEl.remove(workoutEl.selectedIndex);
+
+    // const LamMarker = new L.marker([
+    //   this._markers[workoutIndex].lat,
+    //   this._markers[workoutIndex].lng,
+    // ]);
+    // console.log(LamMarker);
+
+    // const LamMarker = new L.marker([
+    //   this._markers[workoutIndex].lat,
+    //   this._markers[workoutIndex].lng,
+    // ]);
+
+    // Remove marker from _markers array
+    const removed = this._markers.splice(workoutIndex, 1)[0];
+    // this._map.addLayer(removed);
+    // this._map.remove();
+    // this._getPosition();
+
+    /* console.log(removed.lat, removed.lng);
+    console.log(L.marker([removed.lat, removed.lng]).addTo(this._map));
+    this._map.removeLayer(
+      L.marker([removed.lat, removed.lng]).addTo(this._map)
+    ); */
+
+    // Delete marker from map
+    //this._map.removeLayer(removed);
+    //this._map.removeLayer(_markers[])
+    this._map.removeLayer(removed);
     this._setLocalStorage();
     // console.log('GOT HERE!!!');
   }
@@ -399,8 +462,24 @@ class App {
 const app = new App();
 
 // TODO
-// To remove workout from html
-// const x = document.querySelector(".workout--running");
-// console.log(x)
+// Edit a workout
+// Delete all workouts
+// Sort workouts
 
-// x.remove(x.selectedIndex)
+//Object.entries(app._map._layers).forEach(elem => console.log(elem[1]?._latlng))
+
+/* var map = L.map('map', {
+  'center': [0, 0],
+  'zoom': 1,
+  'layers': [
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      'attribution': 'Map data &copy; OpenStreetMap contributors'
+    })
+  ]
+});
+
+var marker = L.marker([0, 0]).addTo(map);
+
+map.on('click', function () {
+  map.removeLayer(marker);
+}); */
